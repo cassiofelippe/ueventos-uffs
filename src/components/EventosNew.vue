@@ -16,6 +16,8 @@
 </template>
 
 <script>
+  import http from '@/services/http.js'
+
   export default {
     name: 'EventosIndex',
 
@@ -32,8 +34,9 @@
 
     methods: {
       criar() {
-        console.log('evento criado', this.evento.nome, this.evento.data)
-        alert('evento criado ' + this.evento.nome + ' - ' + this.evento.data)
+        http.post('/eventos', {
+          data: this.evento
+        })
       }
     },
 

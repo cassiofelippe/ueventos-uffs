@@ -20,6 +20,8 @@
 </template>
 
 <script>
+  import http from '@/services/http.js'
+
   export default {
     name: 'EventosIndex',
 
@@ -37,13 +39,13 @@
     methods: {
       novoEvento() {
         this.$router.push('/eventos/new').catch(e => e).then(() => {
-          this.$router.go();
-        });
+          this.$router.go()
+        })
       }
     },
 
-    mounted(){
-      
+    mounted() {
+      http.get('/eventos')
     },
   };
 </script>
