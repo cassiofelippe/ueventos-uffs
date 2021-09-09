@@ -34,9 +34,7 @@
 
     methods: {
       criar() {
-        http.post('/eventos', {
-          data: this.evento
-        })
+        http.post('/eventos/create', this.evento)
       }
     },
 

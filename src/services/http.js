@@ -1,5 +1,7 @@
 import http from 'axios'
 
+http.defaults.baseURL = 'http://localhost:8080'
+
 export default {
 	get(route) {
 		return http.get(route)
