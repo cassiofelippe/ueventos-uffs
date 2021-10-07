@@ -11,7 +11,7 @@
 
       <b-col>&nbsp;</b-col>
       
-      <b-table striped hover :items="eventos">
+      <b-table @row-clicked="redirect" striped hover :items="eventos">
         <template #cell(data)="data">
           {{parseDate(data.item.data)}}
         </template>
@@ -45,6 +45,10 @@
         let date = `${value}`.split('T')[0]
         let fields = date.split('-')
         return `${fields[2]}/${fields[1]}/${fields[0]}`
+      },
+
+      redirect(item) {
+        this.$router.push(`/eventos/${item.id}`)
       }
     },
 
