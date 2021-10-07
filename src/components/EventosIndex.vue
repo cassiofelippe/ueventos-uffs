@@ -29,10 +29,7 @@
 
     data() {
       return {
-        eventos: [
-           {nome: 'tabajara', data: '15/05/1998'},
-           {nome: 'showpanas', data: '15/05/2021'},
-        ]
+        eventos: []
       };
     },
 
@@ -45,7 +42,9 @@
     },
 
     mounted() {
-      http.get('/eventos')
+      http.get('/eventos').then(response => {
+        this.eventos = response.data
+      })
     },
   };
 </script>

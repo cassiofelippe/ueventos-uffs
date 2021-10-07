@@ -37,4 +37,17 @@ export default {
 .header {
   background-color: gray;
 }
+
+body {
+  padding-left: 5em;
+  padding-right: 5em;
+}
+
+input {
+  margin-bottom: 2em;
+}
+
+label {
+  font-weight: bold;
+}
 </style>
