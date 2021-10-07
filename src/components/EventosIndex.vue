@@ -1,22 +1,23 @@
 <template>
-  <div>
+  <b-form>
     <b-container>
-      <b-col>
-        <label>Eventos UFFS</label>
-      </b-col>
-      
-      <b-col>
-        <b-button @click="novoEvento">+ Criar evento</b-button>
+      <b-col cols="12" class="text-left">
+        <h1>Eventos UFFS</h1>
       </b-col>
 
-      <ul>
-        <label>Eventos existentes</label>
-        <li v-for="e, i in eventos" v-bind:key="i">
-          {{e.nome}} -> {{e.data}}
-        </li>
-      </ul>
+      <b-col cols="12" class="text-right">
+        <b-button @click="novoEvento">Criar evento</b-button>
+      </b-col>
+
+      <b-col>&nbsp;</b-col>
+      
+      <b-table striped hover :items="eventos">
+        <template #cell(data)="data">
+          {{parseDate(data.item.data)}}
+        </template>
+      </b-table>
     </b-container>
-  </div>
+  </b-form>
 </template>
 
 <script>
@@ -38,6 +39,12 @@
         this.$router.push('/eventos/new').catch(e => e).then(() => {
           this.$router.go()
         })
+      },
+
+      parseDate(value) {
+        let date = `${value}`.split('T')[0]
+        let fields = date.split('-')
+        return `${fields[2]}/${fields[1]}/${fields[0]}`
       }
     },
 
