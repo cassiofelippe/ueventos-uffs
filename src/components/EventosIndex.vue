@@ -15,6 +15,12 @@
         <template #cell(data)="data">
           {{parseDate(data.item.data)}}
         </template>
+        <template #cell(modalidade)="data">
+          {{data.item.modalidade.nome}}
+        </template>
+        <template #cell(areaConhecimento)="data">
+          {{data.item.areaConhecimento.nome}}
+        </template>
       </b-table>
     </b-container>
   </b-form>

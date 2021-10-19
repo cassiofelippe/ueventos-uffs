@@ -43,16 +43,30 @@
 
       <b-col cols="4" class="evento-modalidade">
         <label for="evento-modalidade">Modalidade</label>
-        <b-select id="evento-modalidade" v-model="model.modalidadeId" :options="modalidades" :disabled="disabled">
+          <b-form-select
+          id="evento-modalidade"
+          v-model="model.modalidade"
+          :options="modalidades"
+          value-field="idModalidade"
+          text-field="nome"
+          :disabled="disabled"
+        >
           <template #first>
             <b-form-select-option :value="null" disabled>-- Selecione --</b-form-select-option>
           </template>
-        </b-select>
+        </b-form-select>
       </b-col>
 
       <b-col cols="4" class="evento-area-conhecimento">
         <label for="evento-area-conhecimento">Área de Conhecimento</label>
-        <b-form-select id="evento-area-conhecimento" v-model="model.areaConhecimentoId" :options="areasConhecimento" :disabled="disabled">
+        <b-form-select
+          id="evento-area-conhecimento"
+          v-model="model.areaConhecimento"
+          :options="areasConhecimento"
+          value-field="idArea"
+          text-field="nome"
+          :disabled="disabled"
+        >
           <template #first>
             <b-form-select-option :value="null" disabled>-- Selecione --</b-form-select-option>
           </template>
@@ -81,14 +95,24 @@
         disabled: false,
         model: {},
         // TODO retrieve from database
-        modalidades: [{value: 1, text: 'pesquisa'}, {value: 2, text: 'extensao'}, {value: 3, text: 'empreendedorismo'}],
-        areasConhecimento: [{value: 1, text: 'saude'}, {value: 2, text: 'tecnologia'}, {value: 3, text: 'didatica'}]
+        modalidades: [{idModalidade: 1, nome: 'pesquisa'}, {idModalidade: 2, nome: 'extensao'}, {idModalidade: 3, nome: 'empreendedorismo'}],
+        areasConhecimento: [{idArea: 1, nome: 'saude'}, {idArea: 2, nome: 'tecnologia'}, {idArea: 3, nome: 'didatica'}]
       };
     },
 
     methods: {
       criar() {
-        http.post('/eventos', this.model)
+        this.model.modalidade = {
+          idModalidade: this.model.modalidade
+        }
+        this.model.areaConhecimento = {
+          idArea: this.model.areaConhecimento
+        }
+        http.post('/eventos', this.model).then(() => {
+          this.$router.push('/eventos').catch(e => e).then(() => {
+            this.$router.go()
+          })
+        })
       }
     },
 
