@@ -13,7 +13,7 @@
       
       <b-table @row-clicked="redirect" striped hover :items="eventos">
         <template #cell(data)="data">
-          {{parseDate(data.item.data)}}
+          {{App.parseDate(data.item.data)}}
         </template>
         <template #cell(modalidade)="data">
           {{data.item.modalidade.nome}}
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+  import * as App from '@/App.vue'
   import http from '@/services/http.js'
 
   export default {
@@ -36,7 +37,8 @@
 
     data() {
       return {
-        eventos: []
+        eventos: [],
+        App
       };
     },
 
@@ -47,14 +49,8 @@
         })
       },
 
-      parseDate(value) {
-        let date = `${value}`.split('T')[0]
-        let fields = date.split('-')
-        return `${fields[2]}/${fields[1]}/${fields[0]}`
-      },
-
       redirect(item) {
-        this.$router.push(`/eventos/${item.id}`)
+        this.$router.push(`/eventos/${item.idEvento}`)
       }
     },
 

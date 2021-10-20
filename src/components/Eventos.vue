@@ -75,7 +75,7 @@
     
       <b-col cols="12">&nbsp;</b-col>
 
-      <b-col cols="12" sm="12" md="12" lg="12" class="text-center">
+      <b-col cols="12" sm="12" md="12" lg="12" class="text-center" v-if="!model.idEvento">
         <b-button @click="criar" variant="success">Criar</b-button>
       </b-col>
     </b-row>
@@ -83,6 +83,7 @@
 </template>
 
 <script>
+  import * as App from '@/App.vue'
   import http from '@/services/http.js'
 
   export default {
@@ -117,9 +118,12 @@
     },
 
     mounted() {
-      if (this.$route.params.id) {
+      if (this.$route.params.idEvento) {
         this.disabled = true
-        http.get(`/eventos/${this.$route.params.id}`).then(response => {
+        http.get(`/eventos/${this.$route.params.idEvento}`).then(response => {
+          response.data.data = App.parseDate(response.data.data, true)
+          response.data.modalidade = response.data.modalidade.idModalidade
+          response.data.areaConhecimento = response.data.areaConhecimento.idArea
           this.model = response.data
         })
       }

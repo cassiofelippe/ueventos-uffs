@@ -2,7 +2,8 @@
   <div id="app">
     <div class="header fixed-top">
       <div class="criacao-eventos">
-        <b-button @click="redirect('/eventos')">eventos</b-button>
+        <b-button @click="redirect('/eventos')">Eventos</b-button>&nbsp;
+        <b-button @click="redirect('/usuarios')">Usuários</b-button>
       </div>
     </div>
     <router-view />
@@ -21,7 +22,18 @@ export default {
       });
     }
   }
-};
+}
+
+export function parseDate(value, inverted = false) {
+  let date = `${value}`.split('T')[0]
+  
+  if (inverted) {
+    return date
+  }
+
+  let fields = date.split('-')
+  return `${fields[2]}/${fields[1]}/${fields[0]}`
+}
 </script>
 
 <style>
