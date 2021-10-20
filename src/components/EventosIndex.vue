@@ -18,6 +18,9 @@
         <template #cell(modalidade)="data">
           {{data.item.modalidade.nome}}
         </template>
+        <template #cell(custo)="data">
+          R$ {{(data.item.custo+'').replace('.', ',').includes(',') ? (data.item.custo+'').replace('.', ',') : data.item.custo+',00'}}
+        </template>
         <template #cell(areaConhecimento)="data">
           {{data.item.areaConhecimento.nome}}
         </template>

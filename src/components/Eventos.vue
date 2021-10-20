@@ -38,7 +38,7 @@
 
       <b-col cols="4" class="evento-custo">
         <label for="evento-custo">Custo</label>
-        <b-input id="evento-custo" v-model="model.custo" placeholder="R$ 0,00" :disabled="disabled" />
+        <b-input type="number" id="evento-custo" v-model="model.custo" placeholder="R$ 0.00" :disabled="disabled" />
       </b-col>
 
       <b-col cols="4" class="evento-modalidade">
@@ -78,6 +78,12 @@
       <b-col cols="12" sm="12" md="12" lg="12" class="text-center" v-if="!model.idEvento">
         <b-button @click="criar" variant="success">Criar</b-button>
       </b-col>
+      <b-col cols="12" sm="12" md="12" lg="12" class="text-center" v-if="model.idEvento && disabled">
+        <b-button @click="editar" variant="success">Editar</b-button>
+      </b-col>
+      <b-col cols="12" sm="12" md="12" lg="12" class="text-center" v-if="model.idEvento && !disabled">
+        <b-button @click="salvar" variant="success">Salvar</b-button>
+      </b-col>
     </b-row>
   </b-form>  
 </template>
@@ -110,6 +116,24 @@
           idArea: this.model.areaConhecimento
         }
         http.post('/eventos', this.model).then(() => {
+          this.$router.push('/eventos').catch(e => e).then(() => {
+            this.$router.go()
+          })
+        })
+      },
+
+      editar() {
+        this.disabled = false
+      },
+
+      salvar() {
+        this.model.modalidade = {
+          idModalidade: this.model.modalidade
+        }
+        this.model.areaConhecimento = {
+          idArea: this.model.areaConhecimento
+        }
+        http.put('/eventos', this.model).then(() => {
           this.$router.push('/eventos').catch(e => e).then(() => {
             this.$router.go()
           })
